@@ -1,4 +1,4 @@
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE  1
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -57,7 +57,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00042     CONFIG FOSC     = HSPLL_HS
                       00043     CONFIG FCMEN    = OFF
                       00044     CONFIG IESO     = OFF
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE  2
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -116,7 +116,7 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00089 ; Reset vector
                       00090 ; Esta sección se ejecutara cuando ocurra un RESET.
                       00091 
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE  3
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -130,61 +130,90 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00097 
                       00098 ;******************************************************************************
                       00099 ;Start of main program
-                      00100 
-                      00101         
-                      00102 
-                      00103 
-                      00104 ; el PROGRAMA PRINCIPAL inicia aqui
-                      00105 
-                      00106         ORG             0x1000
-001000                00107 INICIO                          ; *** main code goes here **
-                      00108         
-001000 EC?? F???      00109         call Cpuertos
-001004 2883           00110 Leer    incf PORTD,0
-001006 0F00           00111         addlw 0x00
-001008 0007           00112         daw
-00100A 6E83           00113         movwf PORTD
-00100C EC?? F???      00114         call T500
-001010 EF?? F???      00115         goto Leer
+                      00100 ; el PROGRAMA PRINCIPAL inicia aqui
+                      00101 
+                      00102         ORG             0x1000
+001000                00103 INICIO                          ; *** main code goes here **
+                      00104 
+001000 EC?? F???      00105         call Cpuertos
+001004 EC?? F???      00106         call Cdac 
+001008                00107 etq1
+001008 82C2           00108         bsf ADCON0,1
+00100A EC?? F???      00109         call Leer
+00100E EC?? F???      00110         call Desp
+001012 EF?? F???      00111         goto etq1
+                      00112         
+                      00113 
+                      00114 
+                      00115         
                       00116                                         ; end of main   
                       00117 ;******************************************************************************
                       00118 ; Espacio para subrutinas
                       00119 ;******************************************************************************
-001014                00120 Cpuertos
-001014 0E0F           00121         movlw 0x0f
-001016 6EC1           00122         movwf ADCON1
-001018 0EFF           00123         movlw 0xff
-00101A 6E93           00124         movwf TRISB
-00101C 0E00           00125         movlw 0x00
-00101E 6E95           00126         movwf TRISD
-001020 6E83           00127         movwf PORTD
-                      00128 
-001022 0012           00129         RETURN
-                      00130 
-001024                00131 T500
-001024 0E1F           00132         movlw 0x1f
-001026 6E00           00133         movwf 0x00
-001028 0EFF           00134 etq3    movlw 0xff
-00102A 6E01           00135         movwf 0x01
-00102C 0EFF           00136 etq2    movlw 0xff
-00102E 6E02           00137         movwf 0x02
-001030 0602           00138 etq1    decf 0x02,1
-001032 E1??           00139         bnz etq1
-001034 0601           00140         decf 0x01,1
-001036 E1??           00141         bnz etq2
-001038 0600           00142         decf 0x00,1
-00103A E1??           00143         bnz etq3
-00103C 0012           00144         RETURN                  
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE  4
+001016                00120 Desp
+001016 6E83           00121         movwf PORTD
+                      00122 
+001018 0012           00123         RETURN
+                      00124 
+00101A                00125 Cpuertos
+                      00126 
+00101A 0EFF           00127         movlw 0xff
+00101C 6E93           00128         movwf TRISB
+00101E 6E92           00129         movwf TRISA
+001020 0E00           00130         movlw 0x00
+001022 6E95           00131         movwf TRISD
+001024 6E83           00132         movwf PORTD
+                      00133 
+001026 0012           00134         RETURN
+                      00135 
+001028                00136 Cdac
+001028 0E01           00137         movlw 0x01
+00102A 6EC2           00138         movwf ADCON0    
+00102C 0E0E           00139         movlw 0x0e
+00102E 6EC1           00140         movwf ADCON1
+001030 0E0C           00141         movlw 0x0c
+001032 6EC0           00142         movwf ADCON2    
+                      00143         
+001034 0012           00144         RETURN
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00145 ;******************************************************************************
-                      00146 ;Fin del programa
-                      00147         END
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE  5
+                      00145 
+001036                00146 Leer
+001036 B2C2           00147         btfsc ADCON0,1
+001038 EF?? F???      00148         Goto Leer
+00103C 50C4           00149         movf ADRESH,0
+00103E 6E50           00150         movwf 0x50
+001040 0E05           00151         movlw 0x05
+001042 6E51           00152         movwf 0x51
+001044 EC?? F???      00153         call Division
+001048 5052           00154         movf 0x52,0
+                      00155         
+00104A 0012           00156         RETURN
+                      00157 
+00104C                00158 Division
+00104C 6A00           00159         clrf 0x00
+00104E 6A52           00160         clrf 0x52
+001050                00161 etqa
+001050 5051           00162         movf 0x51,0
+001052 2400           00163         addwf 0x00,0
+001054 6E00           00164         movwf 0x00
+001056 6450           00165         cpfsgt 0x50
+001058 0012           00166         RETURN
+00105A 5052           00167         movf 0x52,0
+00105C 0F01           00168         addlw  0x01
+00105E 0007           00169         daw
+001060 6E52           00170         movwf 0x52
+001062 EF?? F???      00171         goto etqa
+                      00172 
+                      00173                                         
+                      00174 ;******************************************************************************
+                      00175 ;Fin del programa
+                      00176         END
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE  5
 
 
 SYMBOL TABLE
@@ -243,7 +272,7 @@ BRGH                              00000002
 BSR                               00000FE0
 BTOEE                             00000004
 BTOEF                             00000004
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE  6
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE  6
 
 
 SYMBOL TABLE
@@ -302,7 +331,7 @@ CMCON                             00000FB4
 CMIE                              00000006
 CMIF                              00000006
 CMIP                              00000006
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE  7
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE  7
 
 
 SYMBOL TABLE
@@ -325,7 +354,8 @@ CVREN                             00000007
 CVROE                             00000006
 CVRR                              00000005
 CVRSS                             00000004
-Cpuertos                          00001014
+Cdac                              00001028
+Cpuertos                          0000101A
 D                                 00000005
 DATA_ADDRESS                      00000005
 DC                                00000001
@@ -343,6 +373,8 @@ DFN8EF                            00000003
 DIR                               00000002
 DONE                              00000001
 D_A                               00000005
+Desp                              00001016
+Division                          0000104C
 ECCP1AS                           00000FB6
 ECCP1CON                          00000FBD
 ECCP1DEL                          00000FB7
@@ -358,15 +390,15 @@ EEIE                              00000004
 EEIF                              00000004
 EEIP                              00000004
 EEPGD                             00000007
-ENDP0                             00000003
-ENDP1                             00000004
-ENDP2                             00000005
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE  8
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE  8
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+ENDP0                             00000003
+ENDP1                             00000004
+ENDP2                             00000005
 ENDP3                             00000006
 EPCONDIS                          00000003
 EPHSHK                            00000004
@@ -417,15 +449,15 @@ HLVDL3                            00000003
 I2C_DAT                           00000005
 I2C_READ                          00000002
 I2C_START                         00000003
-I2C_STOP                          00000004
-IDLEIE                            00000004
-IDLEIF                            00000004
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE  9
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE  9
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+I2C_STOP                          00000004
+IDLEIE                            00000004
+IDLEIF                            00000004
 IDLEN                             00000007
 INDF0                             00000FEF
 INDF1                             00000FE7
@@ -476,15 +508,15 @@ LATA5                             00000005
 LATA6                             00000006
 LATB                              00000F8A
 LATB0                             00000000
-LATB1                             00000001
-LATB2                             00000002
-LATB3                             00000003
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE 10
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE 10
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+LATB1                             00000001
+LATB2                             00000002
+LATB3                             00000003
 LATB4                             00000004
 LATB5                             00000005
 LATB6                             00000006
@@ -522,7 +554,7 @@ LVV0                              00000000
 LVV1                              00000001
 LVV2                              00000002
 LVV3                              00000003
-Leer                              00001004
+Leer                              00001036
 N                                 00000004
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
@@ -535,15 +567,15 @@ NOT_RBPU                          00000007
 NOT_RI                            00000004
 NOT_T1SYNC                        00000002
 NOT_T3SYNC                        00000002
-NOT_TO                            00000003
-NOT_W                             00000002
-NOT_WRITE                         00000002
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE 11
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE 11
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+NOT_TO                            00000003
+NOT_W                             00000002
+NOT_WRITE                         00000002
 OERR                              00000001
 OESPP                             00000002
 OSC2                              00000006
@@ -594,15 +626,15 @@ PORTA                             00000F80
 PORTB                             00000F81
 PORTC                             00000F82
 PORTD                             00000F83
-PORTE                             00000F84
-POSTDEC0                          00000FED
-POSTDEC1                          00000FE5
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE 12
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE 12
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PORTE                             00000F84
+POSTDEC0                          00000FED
+POSTDEC1                          00000FE5
 POSTDEC2                          00000FDD
 POSTINC0                          00000FEE
 POSTINC1                          00000FE6
@@ -653,15 +685,15 @@ RC6                               00000006
 RC7                               00000007
 RCEN                              00000003
 RCIDL                             00000006
-RCIE                              00000005
-RCIF                              00000005
-RCIP                              00000005
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE 13
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE 13
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+RCIE                              00000005
+RCIF                              00000005
+RCIP                              00000005
 RCMT                              00000006
 RCON                              00000FD0
 RCREG                             00000FAE
@@ -712,15 +744,15 @@ SPP2                              00000002
 SPP3                              00000003
 SPP4                              00000004
 SPP5                              00000005
-SPP6                              00000006
-SPP7                              00000007
-SPPBUSY                           00000004
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE 14
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE 14
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+SPP6                              00000006
+SPP7                              00000007
+SPPBUSY                           00000004
 SPPCFG                            00000F63
 SPPCON                            00000F65
 SPPDATA                           00000F62
@@ -771,15 +803,15 @@ T0PS0                             00000000
 T0PS1                             00000001
 T0PS2                             00000002
 T0SE                              00000004
-T13CKI                            00000000
-T1CKPS0                           00000004
-T1CKPS1                           00000005
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE 15
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE 15
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+T13CKI                            00000000
+T1CKPS0                           00000004
+T1CKPS1                           00000005
 T1CON                             00000FCD
 T1OSCEN                           00000003
 T1OSI                             00000001
@@ -800,7 +832,6 @@ T3CKPS1                           00000005
 T3CON                             00000FB1
 T3NSYNC                           00000002
 T3SYNC                            00000002
-T500                              00001024
 TABLAT                            00000FF5
 TBLPTR                            00000FF6
 TBLPTRH                           00000FF7
@@ -831,14 +862,14 @@ TMR3IF                            00000001
 TMR3IP                            00000001
 TMR3L                             00000FB2
 TMR3ON                            00000000
-TO                                00000003
-TOS                               00000FFD
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE 16
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE 16
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+TO                                00000003
+TOS                               00000FFD
 TOSH                              00000FFE
 TOSL                              00000FFD
 TOSU                              00000FFF
@@ -890,14 +921,14 @@ TX                                00000006
 TX9                               00000006
 TX9D                              00000000
 TXCKP                             00000004
-TXEN                              00000005
-TXIE                              00000004
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE 17
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE 17
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+TXEN                              00000005
+TXIE                              00000004
 TXIF                              00000004
 TXIP                              00000004
 TXREG                             00000FAD
@@ -949,14 +980,14 @@ VREFM                             00000002
 VREFP                             00000003
 W                                 00000000
 WCOL                              00000007
-WDTCON                            00000FD1
-WR                                00000001
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE 18
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE 18
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+WDTCON                            00000FD1
+WR                                00000001
 WREG                              00000FE8
 WREN                              00000002
 WRERR                             00000003
@@ -1008,14 +1039,14 @@ _CPUDIV_OSC4_PLL6_1L              000000FF
 _DEBUG_OFF_4L                     000000FF
 _DEBUG_ON_4L                      0000007F
 _DEVID1                           003FFFFE
-_DEVID2                           003FFFFF
-_EBTR0_OFF_7L                     000000FF
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE 19
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE 19
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_DEVID2                           003FFFFF
+_EBTR0_OFF_7L                     000000FF
 _EBTR0_ON_7L                      000000FE
 _EBTR1_OFF_7L                     000000FF
 _EBTR1_ON_7L                      000000FD
@@ -1067,14 +1098,14 @@ _PLLDIV_3_1L                      000000FA
 _PLLDIV_4_1L                      000000FB
 _PLLDIV_5_1L                      000000FC
 _PLLDIV_6_1L                      000000FD
-_PWRT_OFF_2L                      000000FF
-_PWRT_ON_2L                       000000FE
-MPASM  5.30.01                         FORMA.ASM   11-10-2024  23:58:06         PAGE 20
+MPASM  5.30.01                         FORMA.ASM   11-10-2024  18:01:23         PAGE 20
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_PWRT_OFF_2L                      000000FF
+_PWRT_ON_2L                       000000FE
 _STVREN_OFF_4L                    000000FE
 _STVREN_ON_4L                     000000FF
 _USBDIV_1_1L                      000000DF
@@ -1117,9 +1148,8 @@ _XINST_OFF_4L                     000000BF
 _XINST_ON_4L                      000000FF
 __18F4550                         00000001
 __DEBUG                           1
-etq1                              00001030
-etq2                              0000102C
-etq3                              00001028
+etq1                              00001008
+etqa                              00001050
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed

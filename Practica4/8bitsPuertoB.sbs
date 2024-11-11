@@ -60,21 +60,21 @@ Set Low
 --
 Pin
 RB4
-Set High
+Set Low
 
 
 -1
 --
 Pin
 RB5
-Set Low
+Set High
 
 
 -1
 --
 Pin
 RB6
-Set Low
+Set High
 
 
 -1

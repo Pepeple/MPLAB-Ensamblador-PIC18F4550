@@ -98,6 +98,25 @@ RESET_VECTOR	ORG		0
 ;******************************************************************************
 ;Start of main program
 
+	
+
+
+; el PROGRAMA PRINCIPAL inicia aqui
+
+	ORG		0x1000
+INICIO				; *** main code goes here **
+	
+	call Cpuertos
+Leer	incf PORTD,0
+	addlw 0x00
+	daw
+	movwf PORTD
+	call T500
+	goto Leer
+					; end of main	
+;******************************************************************************
+; Espacio para subrutinas
+;******************************************************************************
 Cpuertos
 	movlw 0x0f
 	movwf ADCON1
@@ -108,7 +127,6 @@ Cpuertos
 	movwf PORTD
 
 	RETURN
-
 
 T500
 	movlw 0x1f
@@ -123,32 +141,7 @@ etq1	decf 0x02,1
 	bnz etq2
 	decf 0x00,1
 	bnz etq3
-	
-	RETURN
-	
-
-
-; el PROGRAMA PRINCIPAL inicia aqui
-
-	ORG		0x1000
-INICIO				; *** main code goes here **
-	
-	call Cpuertos
-Leer	incf PORTD,1
-	addlw 0x00
-	daw
-	call T500
-	goto Leer
-	
-
-
-	
-					; end of main	
-;******************************************************************************
-; Espacio para subrutinas
-;******************************************************************************
-
-					
+	RETURN			
 ;******************************************************************************
 ;Fin del programa
 	END

@@ -1,12 +1,12 @@
 MPLINK 4.30.01, Linker
-Linker Map File - Created Thu Oct 17 18:57:47 2024
+Linker Map File - Created Sun Nov 10 20:26:49 2024
 
                                  Section Info
                   Section       Type    Address   Location Size(Bytes)
                 ---------  ---------  ---------  ---------  ---------
-                   .org_0       code   0x000000    program   0x000026
-                   .cinit    romdata   0x000026    program   0x000002
-                   .org_1       code   0x001000    program   0x00000e
+                   .org_0       code   0x000000    program   0x000004
+                   .cinit    romdata   0x000004    program   0x000002
+                   .org_1       code   0x001000    program   0x000030
    .config_300000_FORMA.O    romdata   0x300000    program   0x000001
    .config_300001_FORMA.O    romdata   0x300001    program   0x000001
    .config_300002_FORMA.O    romdata   0x300002    program   0x000001
@@ -25,8 +25,8 @@ Linker Map File - Created Thu Oct 17 18:57:47 2024
                               Program Memory Usage 
                                Start         End      
                            ---------   ---------      
-                            0x000000    0x000027      
-                            0x001000    0x00100d      
+                            0x000000    0x000005      
+                            0x001000    0x00102f      
                             0x300000    0x300003      
                             0x300005    0x300006      
                             0x300008    0x30000d      
@@ -37,11 +37,11 @@ Linker Map File - Created Thu Oct 17 18:57:47 2024
                               Symbols - Sorted by Name
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
-                 Cpuertos   0x000004    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
+                 Cpuertos   0x00100e    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
                    INICIO   0x001000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
-                     Leer   0x001000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
+                     Leer   0x00101e    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
              RESET_VECTOR   0x000000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
-                     leer   0x000014    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
+                     etq1   0x001004    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
 
 
 
@@ -49,9 +49,9 @@ Linker Map File - Created Thu Oct 17 18:57:47 2024
                      Name    Address   Location    Storage File                     
                 ---------  ---------  ---------  --------- ---------                
              RESET_VECTOR   0x000000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
-                 Cpuertos   0x000004    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
-                     leer   0x000014    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
                    INICIO   0x001000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
-                     Leer   0x001000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
+                     etq1   0x001004    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
+                 Cpuertos   0x00100e    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
+                     Leer   0x00101e    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica4\FORMA.asm
 
 

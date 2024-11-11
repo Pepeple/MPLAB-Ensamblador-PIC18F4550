@@ -97,18 +97,19 @@ RESET_VECTOR	ORG		0
 
 ;******************************************************************************
 ;Start of main program
-
-
-
 ; el PROGRAMA PRINCIPAL inicia aqui
 
 	ORG		0x1000
 INICIO				; *** main code goes here **
-	Call Cpuertos 
-etq1  
-	Call Leer
-	movwf PORTD 
+
+	call Cpuertos
+	call Cdac 
+etq1
+	bsf ADCON0,1
+	call Leer
+	call Desp
 	goto etq1
+	
 
 
 	
@@ -116,26 +117,59 @@ etq1
 ;******************************************************************************
 ; Espacio para subrutinas
 ;******************************************************************************
+Desp
+	movwf PORTD
+
+	RETURN
+
 Cpuertos
-	movlw 0x0f
-	movwf ADCON1
+
 	movlw 0xff
 	movwf TRISB
+	movwf TRISA
 	movlw 0x00
 	movwf TRISD
 	movwf PORTD
+
+	RETURN
+
+Cdac
+	movlw 0x01
+	movwf ADCON0	
+	movlw 0x0e
+	movwf ADCON1
+	movlw 0x0c
+	movwf ADCON2	
+	
 	RETURN
 
 Leer
-	swapf PORTB,0
-	andlw 0x0f
+	btfsc ADCON0,1
+	Goto Leer
+	movf ADRESH,0
+	movwf 0x50
+	movlw 0x05
+	movwf 0x51
+	call Division
+	movf 0x52,0
+	
+	RETURN
+
+Division
+	clrf 0x00
+	clrf 0x52
+etqa
+	movf 0x51,0
+	addwf 0x00,0
 	movwf 0x00
-	sublw 0x0c
-	BN Leer
-	movf 0x00,0
-	addlw 0x00
-	DAW
-	RETURN 
+	cpfsgt 0x50
+	RETURN
+	movf 0x52,0
+	addlw  0x01
+	daw
+	movwf 0x52
+	goto etqa
+
 					
 ;******************************************************************************
 ;Fin del programa
