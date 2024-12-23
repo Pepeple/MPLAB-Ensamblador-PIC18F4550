@@ -101,61 +101,38 @@ RESET_VECTOR	ORG		0
 
 	ORG		0x1000
 INICIO				; *** main code goes here **
-
 	call Cpuertos
-	call Cdac 
-etq1
-	bsf ADCON0,1
-	call Leer
-	call Desp
-	goto etq1	
+	call Ctimer
+	etq1
+	btfss INTCON,2
+	goto etq1
+	etq2
+	bsf PORTD,0
+	bcf INTCON,2
+	goto etq2
+	
+	
 					; end of main	
 ;******************************************************************************
 ; Espacio para subrutinas
 ;******************************************************************************
-Desp
-	movwf PORTD
-	RETURN
-Cpuertos
-	movlw 0xff
-	movwf TRISB
-	movwf TRISA
+Cpuertos:
+	movlw 0x0f
+	movwf ADCON1
 	movlw 0x00
 	movwf TRISD
-	movwf PORTD
-	RETURN
-Cdac
-	movlw 0x01
-	movwf ADCON0	
-	movlw 0x0e
-	movwf ADCON1
-	movlw 0x0c
-	movwf ADCON2	
-	RETURN
-Leer
-	btfsc ADCON0,1
-	Goto Leer
-	movf ADRESH,0
-	movwf 0x50
-	movlw 0x05
-	movwf 0x51
-	call Division
-	movf 0x52,0
-	RETURN
-Division
-	clrf 0x00
-	clrf 0x52
-etqa
-	movf 0x51,0
-	addwf 0x00,0
-	movwf 0x00
-	cpfsgt 0x50
-	RETURN
-	movf 0x52,0
-	addlw  0x01
-	daw
-	movwf 0x52
-	goto etqa	
+	
+	return
+
+Ctimer:
+	bcf INTCON,2
+	movlw 0x6a
+	movwf TMR0L
+	movlw 0xcc
+	movwf T0CON
+	
+	return
+					
 ;******************************************************************************
 ;Fin del programa
 	END

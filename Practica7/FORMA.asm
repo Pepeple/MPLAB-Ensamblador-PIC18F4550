@@ -101,61 +101,85 @@ RESET_VECTOR	ORG		0
 
 	ORG		0x1000
 INICIO				; *** main code goes here **
-
 	call Cpuertos
-	call Cdac 
-etq1
-	bsf ADCON0,1
-	call Leer
-	call Desp
-	goto etq1	
+loop call LEER
+	call PWM
+	goto loop
+	
 					; end of main	
 ;******************************************************************************
 ; Espacio para subrutinas
 ;******************************************************************************
-Desp
-	movwf PORTD
-	RETURN
-Cpuertos
+
+
+Cpuertos:
+	movlw 0x0f
+	movwf ADCON1
+	movlw 0x00
+	movwf TRISA
 	movlw 0xff
 	movwf TRISB
-	movwf TRISA
-	movlw 0x00
-	movwf TRISD
-	movwf PORTD
-	RETURN
-Cdac
-	movlw 0x01
-	movwf ADCON0	
-	movlw 0x0e
-	movwf ADCON1
-	movlw 0x0c
-	movwf ADCON2	
-	RETURN
-Leer
-	btfsc ADCON0,1
-	Goto Leer
-	movf ADRESH,0
-	movwf 0x50
-	movlw 0x05
-	movwf 0x51
-	call Division
-	movf 0x52,0
-	RETURN
-Division
-	clrf 0x00
-	clrf 0x52
-etqa
-	movf 0x51,0
-	addwf 0x00,0
+
+	return
+
+LEER:
+	movf PORTB,0
+	andlw 0xf0
+	bz etq1
 	movwf 0x00
-	cpfsgt 0x50
-	RETURN
-	movf 0x52,0
-	addlw  0x01
-	daw
-	movwf 0x52
-	goto etqa	
+	swapf 0x00,1
+	movf 0x00,0
+	sublw 0x10
+	movwf 0x01
+
+	return
+	
+etq1 bcf PORTA,1
+	goto LEER
+
+PWM:
+	movf 0x00,0
+	movwf 0x06
+	bsf PORTA,1
+	call Gtime
+	movf 0x01,0
+	movwf 0x06
+	bcf PORTA,1
+	call Gtime
+	return
+	
+Gtime:
+	movlw 0x08
+	movwf 0x10
+etq3 movlw 0xd1
+	movwf 0x11
+	movlw 0x20
+	movwf 0x12
+	call TMR0
+	decf 0x06,1
+	bz etq2
+	goto etq3
+	
+
+etq2 return
+
+TMR0:
+	movf 0x10,0
+	movwf T0CON
+	movf 0x11,0
+	movwf TMR0H
+	movf 0x12,0
+	movwf TMR0L
+	bsf T0CON,7
+etq4 btfss INTCON,2
+	goto etq4
+	bcf INTCON,2
+	bcf T0CON,7
+	return
+    
+
+
+
 ;******************************************************************************
 ;Fin del programa
 	END

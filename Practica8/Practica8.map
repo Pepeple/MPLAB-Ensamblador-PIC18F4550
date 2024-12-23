@@ -1,0 +1,81 @@
+MPLINK 4.30.01, Linker
+Linker Map File - Created Tue Dec 03 20:51:27 2024
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000004
+                   .cinit    romdata   0x000004    program   0x000002
+                   .org_1       code   0x000008    program   0x000004
+                   .org_2       code   0x000018    program   0x000004
+                   .org_3       code   0x001000    program   0x000004
+                   .org_4       code   0x001008    program   0x00005c
+.config_300000_PRACTICA 8.O    romdata   0x300000    program   0x000001
+.config_300001_PRACTICA 8.O    romdata   0x300001    program   0x000001
+.config_300002_PRACTICA 8.O    romdata   0x300002    program   0x000001
+.config_300003_PRACTICA 8.O    romdata   0x300003    program   0x000001
+.config_300005_PRACTICA 8.O    romdata   0x300005    program   0x000001
+.config_300006_PRACTICA 8.O    romdata   0x300006    program   0x000001
+.config_300008_PRACTICA 8.O    romdata   0x300008    program   0x000001
+.config_300009_PRACTICA 8.O    romdata   0x300009    program   0x000001
+.config_30000A_PRACTICA 8.O    romdata   0x30000a    program   0x000001
+.config_30000B_PRACTICA 8.O    romdata   0x30000b    program   0x000001
+.config_30000C_PRACTICA 8.O    romdata   0x30000c    program   0x000001
+.config_30000D_PRACTICA 8.O    romdata   0x30000d    program   0x000001
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000005      
+                            0x000008    0x00000b      
+                            0x000018    0x00001b      
+                            0x001000    0x001003      
+                            0x001008    0x001063      
+                            0x300000    0x300003      
+                            0x300005    0x300006      
+                            0x300008    0x30000d      
+            122 out of 33048 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                 Cpuertos   0x001020    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+      HIGHPRIORITY_VECTOR   0x000008    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+               HighPr_ISR   0x001008    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                   INICIO   0x00100e    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                     LEER   0x001036    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+       LOWPRIORITY_VECTOR   0x000018    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                LowPr_ISR   0x00100c    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                      PWM   0x001050    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+             RESET_VECTOR   0x000000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                   UNmseg   0x001052    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                   _Reset   0x001000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                   cuenta   0x001054    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                      etq   0x001014    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                     etq1   0x001048    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+             RESET_VECTOR   0x000000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+      HIGHPRIORITY_VECTOR   0x000008    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+       LOWPRIORITY_VECTOR   0x000018    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                   _Reset   0x001000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+               HighPr_ISR   0x001008    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                LowPr_ISR   0x00100c    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                   INICIO   0x00100e    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                      etq   0x001014    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                 Cpuertos   0x001020    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                     LEER   0x001036    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                     etq1   0x001048    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                      PWM   0x001050    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                   UNmseg   0x001052    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+                   cuenta   0x001054    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica8\practica 8.asm
+
+

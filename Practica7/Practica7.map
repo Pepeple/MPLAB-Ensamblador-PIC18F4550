@@ -1,0 +1,71 @@
+MPLINK 4.30.01, Linker
+Linker Map File - Created Tue Dec 03 21:52:24 2024
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000004
+                   .cinit    romdata   0x000004    program   0x000002
+                   .org_1       code   0x001000    program   0x000080
+   .config_300000_FORMA.O    romdata   0x300000    program   0x000001
+   .config_300001_FORMA.O    romdata   0x300001    program   0x000001
+   .config_300002_FORMA.O    romdata   0x300002    program   0x000001
+   .config_300003_FORMA.O    romdata   0x300003    program   0x000001
+   .config_300005_FORMA.O    romdata   0x300005    program   0x000001
+   .config_300006_FORMA.O    romdata   0x300006    program   0x000001
+   .config_300008_FORMA.O    romdata   0x300008    program   0x000001
+   .config_300009_FORMA.O    romdata   0x300009    program   0x000001
+   .config_30000A_FORMA.O    romdata   0x30000a    program   0x000001
+   .config_30000B_FORMA.O    romdata   0x30000b    program   0x000001
+   .config_30000C_FORMA.O    romdata   0x30000c    program   0x000001
+   .config_30000D_FORMA.O    romdata   0x30000d    program   0x000001
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000005      
+                            0x001000    0x00107f      
+                            0x300000    0x300003      
+                            0x300005    0x300006      
+                            0x300008    0x30000d      
+            146 out of 33048 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                 Cpuertos   0x001010    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                    Gtime   0x00104c    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                   INICIO   0x001000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     LEER   0x00101e    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                      PWM   0x001036    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+             RESET_VECTOR   0x000000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     TMR0   0x001066    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     etq1   0x001030    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     etq2   0x001064    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     etq3   0x001050    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     etq4   0x001074    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     loop   0x001004    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+             RESET_VECTOR   0x000000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                   INICIO   0x001000    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     loop   0x001004    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                 Cpuertos   0x001010    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     LEER   0x00101e    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     etq1   0x001030    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                      PWM   0x001036    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                    Gtime   0x00104c    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     etq3   0x001050    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     etq2   0x001064    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     TMR0   0x001066    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+                     etq4   0x001074    program     static C:\Users\ismae\OneDrive\Documentos\MPLAB-Practicas-PIC18F4550\Practica7\FORMA.asm
+
+

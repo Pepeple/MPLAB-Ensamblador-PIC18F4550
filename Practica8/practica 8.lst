@@ -1,4 +1,4 @@
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE  1
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE  1
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
@@ -23,21 +23,22 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00017 ;                                                                             *
                       00018 ;******************************************************************************
                       00019 ;                                                                             *
-                      00020 ;    Filename:    Plantilla                                              *
-                      00021 ;    Date:        18/12/19                                                    *
+                      00020 ;    Filename:    Practica 8                                                *
+                      00021 ;    Date:        06/09/23                                                    *
                       00022 ;    File Version: 1.0                                                        *
                       00023 ;                                                                             *
-                      00024 ;    Author:   Jose Luis Bravo                             *
-                      00025 ;    Company:   Acad. Computación ICE                             *
-                      00026 ;                                                                             * 
-                      00027 ;******************************************************************************
-                      00028 ;                                                                             *
-                      00029 ;    Files required: P18F4550.INC                                             *
-                      00030 ;                                                                             *
-                      00031 ;******************************************************************************
-                      00032 
-                      00033         LIST P=18F4550, F=INHX32        ;directive to define processor
-                      00034         #include <P18F4550.INC>         ;processor specific variable definitions
+                      00024 ;    Author:   Jose Luis Bravo Leon
+                      00025 ;                             *
+                      00026 ;    Company:   Acad. Computación ICE - ESIME Zac.                            *
+                      00027 ;                                                                             * 
+                      00028 ;******************************************************************************
+                      00029 ;                                                                             *
+                      00030 ;    Files required: P18F4550.INC                                             *
+                      00031 ;                                                                             *
+                      00032 ;******************************************************************************
+                      00033 
+                      00034         LIST P=18F4550, F=INHX32        ;directive to define processor
+                      00035         #include <P18F4550.INC>         ;processor specific variable definitions
                       00001         LIST
                       00002 
                       00003 ;==========================================================================
@@ -47,158 +48,204 @@ LOC  OBJECT CODE     LINE SOURCE TEXT
                       00007 ;==========================================================================
                       00008 
                       01643         LIST
-                      00035 
-                      00036 ;******************************************************************************
-                      00037 ;Configuration bits
-                      00038 
-                      00039         CONFIG PLLDIV   = 5         ;(20 MHz crystal on PICDEM FS USB board)
-                      00040     CONFIG CPUDIV   = OSC1_PLL2 
-                      00041     CONFIG USBDIV   = 2         ;Clock source from 96MHz PLL/2
-                      00042     CONFIG FOSC     = HSPLL_HS
-                      00043     CONFIG FCMEN    = OFF
-                      00044     CONFIG IESO     = OFF
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE  2
+                      00036 
+                      00037 ;******************************************************************************
+                      00038 ;Configuration bits
+                      00039 
+                      00040     CONFIG PLLDIV   = 5         ;(20 MHz crystal on PICDEM FS USB board)
+                      00041     CONFIG CPUDIV   = OSC1_PLL2 
+                      00042     CONFIG USBDIV   = 2         ;Clock source from 96MHz PLL/2
+                      00043     CONFIG FOSC     = HSPLL_HS
+                      00044     CONFIG FCMEN    = OFF
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE  2
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00045     CONFIG PWRT     = OFF
-                      00046     CONFIG BOR      = ON
-                      00047     CONFIG BORV     = 3
-                      00048     CONFIG VREGEN   = ON                ;USB Voltage Regulator
-                      00049     config WDT      = OFF
-                      00050     config WDTPS    = 32768
-                      00051     config MCLRE    = ON
-                      00052     config LPT1OSC  = OFF
-                      00053     config PBADEN   = OFF               ;NOTE: modifying this value here won't have an effect
-                      00054                                                                   ;on the application.  See the top of t
-                            he main() function.
-                      00055                                                                   ;By default the RB4 I/O pin is used to
-                             detect if the
-                      00056                                                                   ;firmware should enter the bootloader 
-                            or the main application
-                      00057                                                                   ;firmware after a reset.  In order to 
-                            do this, it needs to
-                      00058                                                                   ;configure RB4 as a digital input, the
-                            reby changing it from
-                      00059                                                                   ;the reset value according to this con
-                            figuration bit.
-                      00060     config CCP2MX   = ON
-                      00061     config STVREN   = ON
-                      00062     config LVP      = OFF
-                      00063     config ICPRT    = OFF       ; Dedicated In-Circuit Debug/Programming
-                      00064     config XINST    = OFF       ; Extended Instruction Set
-                      00065     config CP0      = OFF
-                      00066     config CP1      = OFF
-                      00067     config CP2      = OFF
-                      00068     config CP3      = OFF
-                      00069     config CPB      = OFF
-                      00070     config CPD      = OFF
-                      00071     config WRT0     = OFF
-                      00072     config WRT1     = OFF
-                      00073     config WRT2     = OFF
-                      00074     config WRT3     = OFF
-                      00075     config WRTB     = OFF       ; Boot Block Write Protection
-                      00076     config WRTC     = OFF
-                      00077     config WRTD     = OFF
-                      00078     config EBTR0    = OFF
-                      00079     config EBTR1    = OFF
-                      00080     config EBTR2    = OFF
-                      00081     config EBTR3    = OFF
-                      00082     config EBTRB    = OFF
-                      00083 ;******************************************************************************
-                      00084 ; DEFINICION DE VARIABLES
-                      00085 ; 
+                      00045     CONFIG IESO     = OFF
+                      00046     CONFIG PWRT     = OFF
+                      00047     CONFIG BOR      = ON
+                      00048     CONFIG BORV     = 3
+                      00049     CONFIG VREGEN   = ON        ;USB Voltage Regulator
+                      00050     config WDT      = OFF
+                      00051     config WDTPS    = 32768
+                      00052     config MCLRE    = ON
+                      00053     config LPT1OSC  = OFF
+                      00054     config PBADEN   = OFF       ;NOTE: modifying this value here won't have an effect
+                      00055                                 ;on the application.  See the top of the main() function.
+                      00056                                 ;By default the RB4 I/O pin is used to detect if the
+                      00057                                 ;firmware should enter the bootloader or the main application
+                      00058                                 ;firmware after a reset.  In order to do this, it needs to
+                      00059                                 ;configure RB4 as a digital input, thereby changing it from
+                      00060                                 ;the reset value according to this configuration bit.
+                      00061     config CCP2MX   = ON
+                      00062     config STVREN   = ON
+                      00063     config LVP      = OFF
+                      00064     config ICPRT    = OFF       ; Dedicated In-Circuit Debug/Programming
+                      00065     config XINST    = OFF       ; Extended Instruction Set
+                      00066     config CP0      = OFF
+                      00067     config CP1      = OFF
+                      00068     config CP2      = OFF
+                      00069     config CP3      = OFF
+                      00070     config CPB      = OFF
+                      00071     config CPD      = OFF
+                      00072     config WRT0     = OFF
+                      00073     config WRT1     = OFF
+                      00074     config WRT2     = OFF
+                      00075     config WRT3     = OFF
+                      00076     config WRTB     = OFF       ; Boot Block Write Protection
+                      00077     config WRTC     = OFF
+                      00078     config WRTD     = OFF
+                      00079     config EBTR0    = OFF
+                      00080     config EBTR1    = OFF
+                      00081     config EBTR2    = OFF
+                      00082     config EBTR3    = OFF
+                      00083     config EBTRB    = OFF
+                      00084 ;******************************************************************************
+                      00085 ; Definicion de variables
                       00086 
                       00087 
-                      00088 ;******************************************************************************
-                      00089 ; Reset vector
-                      00090 ; Esta sección se ejecutara cuando ocurra un RESET.
-                      00091 
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE  3
+  00000000            00088 RH              equ 0x00                ; registros para la funcion PWM
+  00000001            00089 RL              equ 0x01                ; 
+  00000002            00090 Rtmrh   equ 0x02                ; registros para el TMR0
+  00000003            00091 Rtmrl   equ 0x03                ; 
+  00000004            00092 RUn             equ 0x04                ; registros para despliegue en BCD
+  00000005            00093 RDec    equ 0x05
+                      00094 
+                      00095 ;******************************************************************************
+                      00096 
+                      00097 ;Reset vector
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE  3
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-                      00092 RESET_VECTOR    ORG             0
-                      00093 
-000000 EF?? F???      00094                 goto    INICIO          ;go to start of main code
-                      00095 
-                      00096 ;******************************************************************************
-                      00097 
-                      00098 ;******************************************************************************
-                      00099 ;Start of main program
-                      00100 ; el PROGRAMA PRINCIPAL inicia aqui
-                      00101 
-                      00102         ORG             0x1000
-001000                00103 INICIO                          ; *** main code goes here **
-                      00104 
-001000 EC?? F???      00105         call Cpuertos
-001004 EC?? F???      00106         call Cdac 
-001008                00107 etq1
-001008 82C2           00108         bsf ADCON0,1
-00100A EC?? F???      00109         call Leer
-00100E EC?? F???      00110         call Desp
-001012 EF?? F???      00111         goto etq1       
-                      00112                                         ; end of main   
-                      00113 ;******************************************************************************
-                      00114 ; Espacio para subrutinas
-                      00115 ;******************************************************************************
-001016                00116 Desp
-001016 6E83           00117         movwf PORTD
-001018 0012           00118         RETURN
-00101A                00119 Cpuertos
-00101A 0EFF           00120         movlw 0xff
-00101C 6E93           00121         movwf TRISB
-00101E 6E92           00122         movwf TRISA
-001020 0E00           00123         movlw 0x00
-001022 6E95           00124         movwf TRISD
-001024 6E83           00125         movwf PORTD
-001026 0012           00126         RETURN
-001028                00127 Cdac
-001028 0E01           00128         movlw 0x01
-00102A 6EC2           00129         movwf ADCON0    
-00102C 0E0E           00130         movlw 0x0e
-00102E 6EC1           00131         movwf ADCON1
-001030 0E0C           00132         movlw 0x0c
-001032 6EC0           00133         movwf ADCON2    
-001034 0012           00134         RETURN
-001036                00135 Leer
-001036 B2C2           00136         btfsc ADCON0,1
-001038 EF?? F???      00137         Goto Leer
-00103C 50C4           00138         movf ADRESH,0
-00103E 6E50           00139         movwf 0x50
-001040 0E05           00140         movlw 0x05
-001042 6E51           00141         movwf 0x51
-001044 EC?? F???      00142         call Division
-001048 5052           00143         movf 0x52,0
-00104A 0012           00144         RETURN
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE  4
+                      00098 
+                      00099 ;*****************************************************************************
+                      00100 RESET_VECTOR    ORG     0
+000000 EF?? F???      00101                 goto    _Reset          ;go to start of user program
+                      00102 ;******************************************************************************
+                      00103 HIGHPRIORITY_VECTOR     ORG     0x0008
+000008 EF?? F???      00104                 goto    HighPr_ISR      ;go to start of ISR
+                      00105 ;****************************************************************************** 
+                      00106 LOWPRIORITY_VECTOR      ORG     0x0018
+000018 EF?? F???      00107                 goto    LowPr_ISR       ;go to start of ISR             
+                      00108 
+                      00109 ;******************************************************************************
+                      00110 ;Start of Reset in Bootloader.
+                      00111 ;******************************************************************************
+                      00112                 ORG     0x1000
+001000 EF?? F???      00113 _Reset  goto    INICIO
+                      00114 ;******************************************************************************
+                      00115 ; Start of High Priority ISR
+                      00116 ;******************************************************************************
+                      00117                 ORG 0x1008
+001008                00118 HighPr_ISR
+001008 EF?? F???      00119                 goto cuenta
+                      00120 
+                      00121 
+                      00122 ;******************************************************************************
+                      00123 ; Start of Low Priority ISR
+                      00124 ;******************************************************************************
+                      00125 ;               ORG 0x1018
+00100C                00126 LowPr_ISR
+                      00127                 
+00100C 0010           00128                 retfie
+                      00129 ;*****************************************************************************
+                      00130 ; INICIO DEL PROGRAMA PRINCIPAL
+                      00131 ;*****************************************************************************
+                      00132 
+00100E                00133 INICIO:
+00100E 6A05           00134         clrf 0x05
+001010 EC?? F???      00135         call Cpuertos
+001014 EC?? F???      00136 etq call LEER
+001018 EC?? F???      00137         call PWM
+00101C EF?? F???      00138         goto etq
+                      00139         
+                      00140 
+                      00141 
+                      00142 
+                      00143                         
+                      00144         
+                      00145                                         ; FIN DEL PROGRAMA PRINCIPAL
+                      00146 ;******************************************************************************
+                      00147 ; SECCION DE SUBRUTINAS
+                      00148 ;******************************************************************************
+001020                00149 Cpuertos:
+001020 0E0F           00150         movlw 0x0f
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE  4
 
 
 LOC  OBJECT CODE     LINE SOURCE TEXT
   VALUE
 
-00104C                00145 Division
-00104C 6A00           00146         clrf 0x00
-00104E 6A52           00147         clrf 0x52
-001050                00148 etqa
-001050 5051           00149         movf 0x51,0
-001052 2400           00150         addwf 0x00,0
-001054 6E00           00151         movwf 0x00
-001056 6450           00152         cpfsgt 0x50
-001058 0012           00153         RETURN
-00105A 5052           00154         movf 0x52,0
-00105C 0F01           00155         addlw  0x01
-00105E 0007           00156         daw
-001060 6E52           00157         movwf 0x52
-001062 EF?? F???      00158         goto etqa       
-                      00159 ;******************************************************************************
-                      00160 ;Fin del programa
-                      00161         END
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE  5
+001022 6EC1           00151         movwf ADCON1
+001024 0E00           00152         movlw 0x00
+001026 6E92           00153         movwf TRISA
+001028 0EFF           00154         movlw 0xff
+00102A 6E93           00155         movwf TRISB
+00102C 0E00           00156         movlw 0x00
+00102E 6E95           00157         movwf TRISD
+001030 0E90           00158         movlw 0x90
+001032 6EF2           00159         movwf INTCON
+                      00160         
+                      00161 
+                      00162         
+001034 0012           00163                 return
+                      00164 ; *********************************************                 
+001036                00165 LEER:
+001036 5081           00166         movf PORTB,0
+001038 0B0F           00167         andlw 0x0f
+00103A E0??           00168         bz etq1
+00103C 6E00           00169         movwf 0x00
+00103E 3A00           00170         swapf 0x00,1
+001040 5000           00171         movf 0x00,0
+001042 0810           00172         sublw 0x10
+001044 6E01           00173         movwf 0x01
+                      00174 
+001046 0012           00175         return
+                      00176         
+001048 9280           00177 etq1 bcf PORTA,1
+00104A EF?? F???      00178         goto LEER
+                      00179         
+                      00180         
+00104E 0012           00181                 return
+                      00182 ; *****************************************
+001050                00183 PWM:
+                      00184 
+                      00185                                 
+001050 0012           00186                 return
+                      00187 ; ***************************************
+001052                00188 UNmseg:
+                      00189 
+                      00190                 
+001052 0012           00191                 return
+                      00192 ; *****************************************
+                      00193 ;Rutina de servicio de interrupcion
+001054                00194 cuenta:
+001054 5005           00195         movf 0x05,0
+001056 0F01           00196         addlw 0x01
+001058 0007           00197         Daw
+00105A 6E05           00198         movwf 0x05
+00105C C005 FF83      00199         movff 0x05,PORTD
+001060 92F2           00200         bcf INTCON,1
+                      00201 
+                      00202         
+001062 0010           00203         retfie
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00204 
+                      00205 
+                      00206 ;******************************************************************************
+                      00207 ;End of program
+                      00208         END
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE  6
 
 
 SYMBOL TABLE
@@ -257,7 +304,7 @@ BRGH                              00000002
 BSR                               00000FE0
 BTOEE                             00000004
 BTOEF                             00000004
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE  6
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE  7
 
 
 SYMBOL TABLE
@@ -316,7 +363,7 @@ CMCON                             00000FB4
 CMIE                              00000006
 CMIF                              00000006
 CMIP                              00000006
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE  7
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE  8
 
 
 SYMBOL TABLE
@@ -339,8 +386,7 @@ CVREN                             00000007
 CVROE                             00000006
 CVRR                              00000005
 CVRSS                             00000004
-Cdac                              00001028
-Cpuertos                          0000101A
+Cpuertos                          00001020
 D                                 00000005
 DATA_ADDRESS                      00000005
 DC                                00000001
@@ -358,8 +404,6 @@ DFN8EF                            00000003
 DIR                               00000002
 DONE                              00000001
 D_A                               00000005
-Desp                              00001016
-Division                          0000104C
 ECCP1AS                           00000FB6
 ECCP1CON                          00000FBD
 ECCP1DEL                          00000FB7
@@ -375,15 +419,15 @@ EEIE                              00000004
 EEIF                              00000004
 EEIP                              00000004
 EEPGD                             00000007
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE  8
+ENDP0                             00000003
+ENDP1                             00000004
+ENDP2                             00000005
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE  9
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-ENDP0                             00000003
-ENDP1                             00000004
-ENDP2                             00000005
 ENDP3                             00000006
 EPCONDIS                          00000003
 EPHSHK                            00000004
@@ -421,6 +465,7 @@ GIEH                              00000007
 GIEL                              00000006
 GO                                00000001
 GO_DONE                           00000001
+HIGHPRIORITY_VECTOR               00000008
 HLVDCON                           00000FD2
 HLVDEN                            00000004
 HLVDIE                            00000002
@@ -431,23 +476,24 @@ HLVDL0                            00000000
 HLVDL1                            00000001
 HLVDL2                            00000002
 HLVDL3                            00000003
+HighPr_ISR                        00001008
 I2C_DAT                           00000005
 I2C_READ                          00000002
 I2C_START                         00000003
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE  9
+I2C_STOP                          00000004
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 10
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-I2C_STOP                          00000004
 IDLEIE                            00000004
 IDLEIF                            00000004
 IDLEN                             00000007
 INDF0                             00000FEF
 INDF1                             00000FE7
 INDF2                             00000FDF
-INICIO                            00001000
+INICIO                            0000100E
 INT0                              00000000
 INT0E                             00000004
 INT0F                             00000001
@@ -493,13 +539,13 @@ LATA5                             00000005
 LATA6                             00000006
 LATB                              00000F8A
 LATB0                             00000000
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE 10
+LATB1                             00000001
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 11
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-LATB1                             00000001
 LATB2                             00000002
 LATB3                             00000003
 LATB4                             00000004
@@ -525,6 +571,8 @@ LATE                              00000F8D
 LATE0                             00000000
 LATE1                             00000001
 LATE2                             00000002
+LEER                              00001036
+LOWPRIORITY_VECTOR                00000018
 LVDCON                            00000FD2
 LVDEN                             00000004
 LVDIE                             00000002
@@ -539,7 +587,7 @@ LVV0                              00000000
 LVV1                              00000001
 LVV2                              00000002
 LVV3                              00000003
-Leer                              00001036
+LowPr_ISR                         0000100C
 N                                 00000004
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
@@ -551,13 +599,13 @@ NOT_POR                           00000001
 NOT_RBPU                          00000007
 NOT_RI                            00000004
 NOT_T1SYNC                        00000002
-NOT_T3SYNC                        00000002
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE 11
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 12
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+NOT_T3SYNC                        00000002
 NOT_TO                            00000003
 NOT_W                             00000002
 NOT_WRITE                         00000002
@@ -610,13 +658,13 @@ POR                               00000001
 PORTA                             00000F80
 PORTB                             00000F81
 PORTC                             00000F82
-PORTD                             00000F83
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE 12
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 13
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+PORTD                             00000F83
 PORTE                             00000F84
 POSTDEC0                          00000FED
 POSTDEC1                          00000FE5
@@ -641,6 +689,7 @@ PSSAC0                            00000002
 PSSAC1                            00000003
 PSSBD0                            00000000
 PSSBD1                            00000001
+PWM                               00001050
 R                                 00000002
 RA0                               00000000
 RA1                               00000001
@@ -668,14 +717,14 @@ RC4                               00000004
 RC5                               00000005
 RC6                               00000006
 RC7                               00000007
-RCEN                              00000003
-RCIDL                             00000006
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE 13
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 14
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+RCEN                              00000003
+RCIDL                             00000006
 RCIE                              00000005
 RCIF                              00000005
 RCIP                              00000005
@@ -695,6 +744,7 @@ RD6                               00000006
 RD7                               00000007
 RDPU                              00000007
 RDSPP                             00000007
+RDec                              00000005
 RE0                               00000000
 RE1                               00000001
 RE2                               00000002
@@ -702,13 +752,18 @@ RE3                               00000003
 READ_WRITE                        00000002
 RESET_VECTOR                      00000000
 RESUME                            00000002
+RH                                00000000
 RI                                00000004
+RL                                00000001
 RSEN                              00000001
+RUn                               00000004
 RX                                00000007
 RX9                               00000006
 RX9D                              00000000
 RXDTP                             00000005
 R_W                               00000002
+Rtmrh                             00000002
+Rtmrl                             00000003
 S                                 00000003
 SBOREN                            00000006
 SCKP                              00000004
@@ -721,6 +776,12 @@ SMP                               00000007
 SOFIE                             00000006
 SOFIF                             00000006
 SPBRG                             00000FAF
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 SPBRGH                            00000FB0
 SPEN                              00000007
 SPP0                              00000000
@@ -729,12 +790,6 @@ SPP2                              00000002
 SPP3                              00000003
 SPP4                              00000004
 SPP5                              00000005
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE 14
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 SPP6                              00000006
 SPP7                              00000007
 SPPBUSY                           00000004
@@ -780,6 +835,12 @@ SYNC                              00000004
 T08BIT                            00000006
 T0CKI                             00000004
 T0CON                             00000FD5
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 T0CS                              00000005
 T0IE                              00000005
 T0IF                              00000002
@@ -788,12 +849,6 @@ T0PS0                             00000000
 T0PS1                             00000001
 T0PS2                             00000002
 T0SE                              00000004
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE 15
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 T13CKI                            00000000
 T1CKPS0                           00000004
 T1CKPS1                           00000005
@@ -839,6 +894,12 @@ TMR2                              00000FCC
 TMR2IE                            00000001
 TMR2IF                            00000001
 TMR2IP                            00000001
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 TMR2ON                            00000002
 TMR3CS                            00000001
 TMR3H                             00000FB3
@@ -847,12 +908,6 @@ TMR3IF                            00000001
 TMR3IP                            00000001
 TMR3L                             00000FB2
 TMR3ON                            00000000
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE 16
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TO                                00000003
 TOS                               00000FFD
 TOSH                              00000FFE
@@ -898,6 +953,12 @@ TRMT                              00000001
 TRNIE                             00000003
 TRNIF                             00000003
 TUN0                              00000000
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 TUN1                              00000001
 TUN2                              00000002
 TUN3                              00000003
@@ -906,12 +967,6 @@ TX                                00000006
 TX9                               00000006
 TX9D                              00000000
 TXCKP                             00000004
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE 17
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 TXEN                              00000005
 TXIE                              00000004
 TXIF                              00000004
@@ -947,6 +1002,7 @@ UFRMH                             00000F67
 UFRML                             00000F66
 UIE                               00000F69
 UIR                               00000F68
+UNmseg                            00001052
 UOEMON                            00000006
 UPUEN                             00000004
 URSTIE                            00000000
@@ -956,6 +1012,12 @@ USBIE                             00000005
 USBIF                             00000005
 USBIP                             00000005
 USTAT                             00000F6C
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 UTEYE                             00000007
 UTRDIS                            00000003
 VCFG0                             00000004
@@ -965,12 +1027,6 @@ VREFM                             00000002
 VREFP                             00000003
 W                                 00000000
 WCOL                              00000007
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE 18
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 WDTCON                            00000FD1
 WR                                00000001
 WREG                              00000FE8
@@ -1015,6 +1071,12 @@ _CP3_OFF_5L                       000000FF
 _CP3_ON_5L                        000000F7
 _CPB_OFF_5H                       000000FF
 _CPB_ON_5H                        000000BF
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _CPD_OFF_5H                       000000FF
 _CPD_ON_5H                        0000007F
 _CPUDIV_OSC1_PLL2_1L              000000E7
@@ -1024,12 +1086,6 @@ _CPUDIV_OSC4_PLL6_1L              000000FF
 _DEBUG_OFF_4L                     000000FF
 _DEBUG_ON_4L                      0000007F
 _DEVID1                           003FFFFE
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE 19
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _DEVID2                           003FFFFF
 _EBTR0_OFF_7L                     000000FF
 _EBTR0_ON_7L                      000000FE
@@ -1074,6 +1130,12 @@ _LVP_ON_4L                        000000FF
 _MCLRE_OFF_3H                     0000007F
 _MCLRE_ON_3H                      000000FF
 _PBADEN_OFF_3H                    000000FD
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 21
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _PBADEN_ON_3H                     000000FF
 _PLLDIV_10_1L                     000000FE
 _PLLDIV_12_1L                     000000FF
@@ -1083,14 +1145,9 @@ _PLLDIV_3_1L                      000000FA
 _PLLDIV_4_1L                      000000FB
 _PLLDIV_5_1L                      000000FC
 _PLLDIV_6_1L                      000000FD
-MPASM  5.30.01                         FORMA.ASM   11-13-2024  20:32:10         PAGE 20
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _PWRT_OFF_2L                      000000FF
 _PWRT_ON_2L                       000000FE
+_Reset                            00001000
 _STVREN_OFF_4L                    000000FE
 _STVREN_ON_4L                     000000FF
 _USBDIV_1_1L                      000000DF
@@ -1132,9 +1189,16 @@ _WRTD_ON_6H                       0000007F
 _XINST_OFF_4L                     000000BF
 _XINST_ON_4L                      000000FF
 __18F4550                         00000001
+MPASM  5.30.01                    PRACTICA 8.ASM   12-3-2024  20:51:25         PAGE 22
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 __DEBUG                           1
-etq1                              00001008
-etqa                              00001050
+cuenta                            00001054
+etq                               00001014
+etq1                              00001048
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
