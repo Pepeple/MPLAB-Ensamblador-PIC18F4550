@@ -31,14 +31,7 @@ Any
 &
 ## ASYNCH
 Pin
-RB4
-Set High
-
-
--1
---
-Pin
-RB5
+RB7
 Set Low
 
 
@@ -52,8 +45,15 @@ Set Low
 -1
 --
 Pin
-RB7
+RB5
 Set Low
+
+
+-1
+--
+Pin
+RB4
+Set High
 
 
 -1

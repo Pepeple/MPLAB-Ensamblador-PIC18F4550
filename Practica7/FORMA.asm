@@ -98,20 +98,16 @@ RESET_VECTOR	ORG		0
 ;******************************************************************************
 ;Start of main program
 ; el PROGRAMA PRINCIPAL inicia aqui
-
 	ORG		0x1000
 INICIO				; *** main code goes here **
 	call Cpuertos
 loop call LEER
 	call PWM
 	goto loop
-	
 					; end of main	
 ;******************************************************************************
 ; Espacio para subrutinas
 ;******************************************************************************
-
-
 Cpuertos:
 	movlw 0x0f
 	movwf ADCON1
@@ -119,9 +115,7 @@ Cpuertos:
 	movwf TRISA
 	movlw 0xff
 	movwf TRISB
-
 	return
-
 LEER:
 	movf PORTB,0
 	andlw 0xf0
@@ -131,12 +125,9 @@ LEER:
 	movf 0x00,0
 	sublw 0x10
 	movwf 0x01
-
 	return
-	
 etq1 bcf PORTA,1
 	goto LEER
-
 PWM:
 	movf 0x00,0
 	movwf 0x06
@@ -147,7 +138,6 @@ PWM:
 	bcf PORTA,1
 	call Gtime
 	return
-	
 Gtime:
 	movlw 0x08
 	movwf 0x10
@@ -159,10 +149,7 @@ etq3 movlw 0xd1
 	decf 0x06,1
 	bz etq2
 	goto etq3
-	
-
 etq2 return
-
 TMR0:
 	movf 0x10,0
 	movwf T0CON

@@ -133,9 +133,9 @@ LowPr_ISR
 INICIO:
 	clrf 0x05
 	call Cpuertos
-etq call LEER
+loop call LEER
 	call PWM
-	goto etq
+	goto loop
 	
 
 
@@ -157,38 +157,55 @@ Cpuertos:
 	movwf TRISD
 	movlw 0x90
 	movwf INTCON
-	
-
-	
-		return
-; *********************************************			
+		return	
 LEER:
 	movf PORTB,0
-	andlw 0x0f
+	andlw 0xf0
 	bz etq1
 	movwf 0x00
 	swapf 0x00,1
 	movf 0x00,0
 	sublw 0x10
 	movwf 0x01
-
 	return
-	
 etq1 bcf PORTA,1
 	goto LEER
-	
-	
-		return
-; *****************************************
 PWM:
+	movf 0x00,0
+	movwf 0x06
+	bsf PORTA,1
+	call Gtime
+	movf 0x01,0
+	movwf 0x06
+	bcf PORTA,1
+	call Gtime
+	return
+Gtime:
+	movlw 0x08
+	movwf 0x10
+etq3 movlw 0xd1
+	movwf 0x11
+	movlw 0x20
+	movwf 0x12
+	call TMR0
+	decf 0x06,1
+	bz etq2
+	goto etq3
+etq2 return
+TMR0:
+	movf 0x10,0
+	movwf T0CON
+	movf 0x11,0
+	movwf TMR0H
+	movf 0x12,0
+	movwf TMR0L
+	bsf T0CON,7
+etq4 btfss INTCON,2
+	goto etq4
+	bcf INTCON,2
+	bcf T0CON,7
+	return		
 
-				
-		return
-; ***************************************
-UNmseg:
-
-		
-		return
 ; *****************************************
 ;Rutina de servicio de interrupcion
 cuenta:
